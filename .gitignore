@@ -1,0 +1,8 @@
+.DS_Store
+._*
+*.o
+*.a
+*.ppm
+*.pdf
+wolf3d
+wolf3d.dSYM

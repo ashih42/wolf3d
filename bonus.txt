@@ -1,0 +1,28 @@
+- Press 'F' to switch among 4 floor textures
+	(1) Xor grayscale
+	(2) Xor RGB
+	(3) Xor HSV
+	(4) Nep-Nep shows the way to true North
+
+- Press 'M' to toggle minimap:
+	(1) No minimap
+	(2) Fixed minimap
+	(3) Rotating minimap
+
+- Press 'C' to toggle on/off the "fishbowl" distortion
+
+- Press 'V' to toggle 'wobble mode'
+	(1) No wobble
+	(2) Quite wobble
+	(3) Extreme wobble into mirror image
+
+- Press 'Tilde' key to save a screenshot to ppm file
+
+- Press 'Tab' to show/hide mouse cursor
+
+- Drag and resize window with mouse cursor
+
+- Press 'Spacebar' to shoot burgers
+
+- Network multi-player up to 256 players!
+
