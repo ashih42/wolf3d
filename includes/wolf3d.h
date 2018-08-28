@@ -6,7 +6,7 @@
 /*   By: apuel <apuel@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/25 18:39:39 by ashih             #+#    #+#             */
-/*   Updated: 2018/08/28 14:07:54 by apuel            ###   ########.fr       */
+/*   Updated: 2018/08/28 15:15:07 by apuel            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,6 @@
 **	One thread per core.
 */
 # define THREAD_COUNT			4
-
-#include <assert.h> // DELETE THIS LATER
-#include <stdio.h> // DELETE THIS LATER
 
 # define ERROR_GL				"Some kind of OpenGL error"
 # define ERROR_SHADER			"Shader error"
@@ -241,27 +238,23 @@ typedef struct		s_entity
 
 typedef struct		s_master
 {
-	// argv Processing --------------------------------	
 	char			*ip;
 	int				port;
 	char			mode;
 
-	// OpenGL -----------------------------------------
 	GLFWwindow		*window;
 	unsigned int	shader_prog;
 	unsigned int	vao;
 	unsigned int	vbo;
-	unsigned int	ebo;	
+	unsigned int	ebo;
 	unsigned int	frame_tex;
-	
-	// Rendering --------------------------------------
+
 	int				*frame;
 	int				asset_count;
 	t_asset			*assets;
 	t_sprite		*ceil_tex;
 	t_sprite		*floor_tex[FLOOR_TYPES];
-	
-	// Game Logic --------------------------------------
+
 	t_map			map;
 	char			*map_name;
 	int				map_x;
@@ -369,18 +362,15 @@ int					init_entities(t_master *m);
 */
 void				floor_cast(t_dda *dda, t_wall *wall, t_master *m, int x);
 
-
 /*
 ** freedom.c
 */
 int					free_all(t_master *m, int ret);
 
-
 /*
 ** gl_init.c
 */
 int					gl_init(t_master *m);
-
 
 /*
 ** gl_init_shader.c
@@ -390,9 +380,9 @@ int					gl_init_shader(t_master *m);
 /*
 ** gl_callback.c
 */
-void				key_callback(GLFWwindow* window, int key, int scancode,
+void				key_callback(GLFWwindow *window, int key, int scancode,
 	int action, int mods);
-void				window_resize_callback(GLFWwindow* window,
+void				window_resize_callback(GLFWwindow *window,
 	int width, int height);
 void				error_callback(int error, const char *description);
 
@@ -428,9 +418,6 @@ void				switch_floor_mode(t_master *m, int action);
 void				toggle_curve_mode(t_master *m, int action);
 void				toggle_wobble_mode(t_master *m, int action);
 
-
-
-
 /*
 ** map.c
 */
@@ -446,9 +433,8 @@ void				render_mm_th_master(t_master *m);
 /*
 ** mouse.c
 */
-void				mouse_move_callback(GLFWwindow* window,
+void				mouse_move_callback(GLFWwindow *window,
 	double xpos, double ypos);
-
 
 /*
 ** parse_map.c
@@ -475,8 +461,6 @@ void				render(t_master *m);
 /*
 ** render_entities.c
 */
-// void				dre_vert(int x, t_dre *dre, t_master *m);
-// void				draw_entity(t_entity *e, t_master *m);
 void				render_entities(t_master *m);
 
 /*
@@ -541,7 +525,7 @@ void				dre_th_master(t_master *m);
 # define DRAW_TH_MM 3
 # define DRAW_TH_EXIT 4
 
-typedef	struct 		s_thread_args
+typedef	struct		s_thread_args
 {
 	t_master		*m;
 	int				i;

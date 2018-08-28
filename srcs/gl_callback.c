@@ -6,7 +6,7 @@
 /*   By: apuel <apuel@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/05 23:24:47 by ashih             #+#    #+#             */
-/*   Updated: 2018/08/28 14:08:02 by apuel            ###   ########.fr       */
+/*   Updated: 2018/08/28 15:08:52 by apuel            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void		key_callback(GLFWwindow *window, KEY_CALLBACK_ARGS mods)
 		[GLFW_KEY_F] = switch_floor_mode,
 		[GLFW_KEY_C] = toggle_curve_mode,
 		[GLFW_KEY_V] = toggle_wobble_mode,
-		[GLFW_KEY_SPACE] = fire_bullet};
+		[GLFW_KEY_SPACE] = fire_bullet };
 	t_master	*m;
 
 	m = glfwGetWindowUserPointer(window);
