@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ashih <ashih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: apuel <apuel@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/03 16:54:46 by ashih             #+#    #+#             */
-/*   Updated: 2018/08/25 19:26:46 by ashih            ###   ########.fr       */
+/*   Updated: 2018/08/28 14:03:45 by apuel            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void		update_time(t_master *m)
 	}
 }
 
-void			main_loop(t_master *m)
+static void		main_loop(t_master *m)
 {
 	while(!(m->terminate) && !glfwWindowShouldClose(m->window))
 	{
@@ -59,89 +59,65 @@ void			main_loop(t_master *m)
 	}
 }
 
+static int		data_init(char *path, t_master *m)
+{
+	return (init_argv0_path(path, &(m->path)) ||
+		load_sprite(&(m->textures[0]), SONIC_SPRITE, m->path) ||
+		load_sprite(&(m->textures[1]), UGANDA_SPRITE, m->path) ||
+		load_sprite(&(m->textures[TEXTURE_COUNT + 0]), P1_SPRITE, m->path) ||
+		load_sprite(&(m->textures[TEXTURE_COUNT + 1]), P2_SPRITE, m->path) ||
+		load_sprite(&(m->textures[BULLET_TEXTURE]), BULLET_SPRITE, m->path) ||
+		init_assets(m));
+}
+
+static int		process_flags(int argc, char **argv, t_master *m)
+{
+	int	i;
+
+	i = 1;
+	while (i < argc)
+	{
+		if (argv[i][0] != '-' || !(argv[i][1]) || argv[i][2])
+			m->map_name = argv[i];
+		else if (!(m->mode) && i + 1 < argc && argv[i][1] == 's')
+		{
+			m->mode = 's';
+			m->port = ft_atoi(argv[++i]);
+		}
+		else if (!(m->mode) && i + 2 < argc && argv[i][1] == 'c')
+		{
+			m->mode = 'c';
+			m->ip = argv[++i];
+			m->port = ft_atoi(argv[++i]);
+		}
+		else
+			return (ft_puterror(ERROR_USAGE, 0, 1));
+		i++;
+	}
+	if (!(m->client) && !(m->map_name))
+		return (ft_puterror(ERROR_USAGE, 0, 1));
+	return (0);
+}
+
 int				main(int argc, char **argv)
 {
 	t_master	m;
 
-	if (argc < 2)
-		return (ft_puterror(ERROR_USAGE, 0, EXIT_FAILURE));
-
 	srand(time(NULL));
 	ft_bzero(&m, sizeof(t_master));
-
 	m.socket = -1;
-
-	init_argv0_path(argv[0], &m.path);	// check for failure on this too
-
-	load_sprite(&(m.textures[0]), SONIC_SPRITE, m.path);
-	load_sprite(&(m.textures[1]), UGANDA_SPRITE, m.path);
-	load_sprite(&(m.textures[TEXTURE_COUNT + 0]), P1_SPRITE, m.path);
-	load_sprite(&(m.textures[TEXTURE_COUNT + 1]), P2_SPRITE, m.path);
-	load_sprite(&(m.textures[BULLET_TEXTURE]), BULLET_SPRITE, m.path);
-
-	if (init_assets(&m))
-		return (free_all(&m, 1));
-
-	int server = 0;
-	if (argc > 2 && !ft_strcmp(argv[2], "-s"))
-		server = 1;
-	else if (argc > 2)
-		m.client = 1;
-
-	if (!m.client)
-	{
-		if (read_map_file(argv[1], &m) || init_entities(&m))
-			return (free_all(&m, EXIT_FAILURE));
-	}
-	else
-	{
-		if (start_client(&m, argv[2], 4242))
-		{
-			ft_printf("[Client] %s\n", strerror(errno));
-			return (free_all(&m, EXIT_FAILURE));
-		}
-	}
-
-	if (server)
-	{
-		m.players[0].connected = 1;
-		if (start_server(&m, 4242))
-		{
-			ft_printf("[Server] %s\n", strerror(errno));
-			return (free_all(&m, EXIT_FAILURE));
-		}
-	}
-
-	pthread_mutex_init(&(m.mutex), NULL);
-	if (m.socket >= 0 && pthread_create(&(m.thread), NULL, packet_thread, &m))
+	m.players[0].connected = 1;
+	if (data_init(argv[0], &m) || process_flags(argc, argv, &m))
 		return (free_all(&m, EXIT_FAILURE));
-
+	if (server_init(&m))
+		return (free_all(&m, EXIT_FAILURE));
 	if (gl_init(&m))
 		return (free_all(&m, EXIT_FAILURE));
 	m.curr_time = glfwGetTime();
-
-//	print_map(&m.map);
 	init_bgm(m.path);
 	draw_thread_init(&m);
-
 	main_loop(&m);
-
-	if (m.socket >= 0)
-	{
-		m.terminate = 1;
-		pthread_join(m.thread, 0);
-		if (m.client)
-			send_disconnect_packet(m.socket);
-		else
-		{
-			for (uint32_t i = 1; i < PLAYER_COUNT; i++)
-				if (m.players[i].connected)
-					disconnect_player(i, &m);
-		}
-		shutdown(m.socket, 2);
-		ft_putstr("Disconnected.\n");
-	}
-
 	draw_thread_deinit(&m);
+	server_deinit(&m);
 	return (free_all(&m, EXIT_SUCCESS));
 }

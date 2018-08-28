@@ -6,7 +6,7 @@
 /*   By: apuel <apuel@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/25 03:01:45 by apuel             #+#    #+#             */
-/*   Updated: 2018/08/25 14:45:51 by apuel            ###   ########.fr       */
+/*   Updated: 2018/08/28 13:56:50 by apuel            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,12 @@ void			*packet_thread(void *arg);
 void			dispatch_entity_packet(uint32_t id, t_entity *e, t_master *m);
 void			dispatch_player_packet(
 					uint32_t id, t_player *p, t_master *m, int send_to_self);
+
+/*
+**	server_init.c
+*/
+int				server_init(t_master *m);
+void			server_deinit(t_master *m);
 
 /*
 **	server.c

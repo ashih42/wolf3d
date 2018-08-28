@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wolf3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ashih <ashih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: apuel <apuel@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/25 18:39:39 by ashih             #+#    #+#             */
-/*   Updated: 2018/08/25 19:26:26 by ashih            ###   ########.fr       */
+/*   Updated: 2018/08/28 14:02:20 by apuel            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,11 @@
 # define ERROR_GL				"Some kind of OpenGL error"
 # define ERROR_SHADER			"Shader error"
 
-# define ERROR_USAGE			"usage: wolf3d input_file"
+# define ERROR_USAGE			"usage: ./wolf3d <input_file>\n" FLAG_USAGE
+# define FLAG_USAGE				FLAG_S_USAGE FLAG_C_USAGE FLAG_H_USAGE
+# define FLAG_S_USAGE			"-s <port>        Spawn server.\n"
+# define FLAG_C_USAGE			"-c <ip> <port>   Spawn client.\n"
+# define FLAG_H_USAGE			"-h               Display usage."
 # define ERROR_MEMORY			"Out of memory"
 # define ERROR_OPEN_FILE		"Cannot open file"
 # define ERROR_CLOSE_FILE		"Cannot close file"
@@ -237,6 +241,11 @@ typedef struct		s_entity
 
 typedef struct		s_master
 {
+	// argv Processing --------------------------------	
+	char			*ip;
+	int				port;
+	char			mode;
+
 	// OpenGL -----------------------------------------
 	GLFWwindow		*window;
 	unsigned int	shader_prog;

@@ -58,6 +58,7 @@ netplay/netplay.c \
 netplay/recv_packet.c \
 netplay/send_packet.c \
 netplay/server.c \
+netplay/server_init.c
 
 SRCDIR := srcs/
 OBJDIR := objs/
