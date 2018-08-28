@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gl_callback.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ashih <ashih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: apuel <apuel@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/05 23:24:47 by ashih             #+#    #+#             */
-/*   Updated: 2018/08/25 18:51:32 by ashih            ###   ########.fr       */
+/*   Updated: 2018/08/28 14:08:02 by apuel            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 ** V						Toggle "Wobble Mode" on/off
 */
 
-void		key_callback(GLFWwindow *window, KEY_CALLBACK_ARGS)
+void		key_callback(GLFWwindow *window, KEY_CALLBACK_ARGS mods)
 {
 	static void	(*key_table[259])(t_master *, int) = {
 		[GLFW_KEY_ESCAPE] = terminate,

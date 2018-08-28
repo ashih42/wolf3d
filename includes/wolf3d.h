@@ -6,7 +6,7 @@
 /*   By: apuel <apuel@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/25 18:39:39 by ashih             #+#    #+#             */
-/*   Updated: 2018/08/28 14:02:20 by apuel            ###   ########.fr       */
+/*   Updated: 2018/08/28 14:07:54 by apuel            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@
 # define P1_SPRITE				"textures/BlobFearSweat.sprite"
 # define P2_SPRITE				"textures/blobwizard.sprite"
 
-# define KEY_CALLBACK_ARGS int key, int scancode, int action, int mods
+# define KEY_CALLBACK_ARGS int key, int scancode, int action, int
 
 typedef	struct		s_vect2
 {

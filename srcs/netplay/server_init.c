@@ -6,7 +6,7 @@
 /*   By: apuel <apuel@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/28 13:51:47 by apuel             #+#    #+#             */
-/*   Updated: 2018/08/28 13:59:39 by apuel            ###   ########.fr       */
+/*   Updated: 2018/08/28 14:08:53 by apuel            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int		server_init(t_master *m)
 
 void	server_deinit(t_master *m)
 {
+	uint32_t	i;
+
 	if (m->socket >= 0)
 	{
 		m->terminate = 1;
@@ -45,9 +47,13 @@ void	server_deinit(t_master *m)
 			send_disconnect_packet(m->socket);
 		else
 		{
-			for (uint32_t i = 1; i < PLAYER_COUNT; i++)
+			i = 1;
+			while (i < PLAYER_COUNT)
+			{
 				if (m->players[i].connected)
 					disconnect_player(i, m);
+				i++;
+			}
 		}
 		shutdown(m->socket, 2);
 		ft_putstr("Disconnected.\n");

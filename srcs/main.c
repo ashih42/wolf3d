@@ -6,7 +6,7 @@
 /*   By: apuel <apuel@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/03 16:54:46 by ashih             #+#    #+#             */
-/*   Updated: 2018/08/28 14:03:45 by apuel            ###   ########.fr       */
+/*   Updated: 2018/08/28 14:07:19 by apuel            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void		update_time(t_master *m)
 
 static void		main_loop(t_master *m)
 {
-	while(!(m->terminate) && !glfwWindowShouldClose(m->window))
+	while (!(m->terminate) && !glfwWindowShouldClose(m->window))
 	{
 		if (!(m->client) && m->socket >= 0)
 			listener_task(m);
