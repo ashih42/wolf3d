@@ -6,7 +6,7 @@
 /*   By: apuel <apuel@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/03 16:54:46 by ashih             #+#    #+#             */
-/*   Updated: 2018/08/28 14:07:19 by apuel            ###   ########.fr       */
+/*   Updated: 2018/08/28 14:14:47 by apuel            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ static int		process_flags(int argc, char **argv, t_master *m)
 {
 	int	i;
 
-	i = 1;
-	while (i < argc)
+	i = 0;
+	while (++i < argc)
 	{
 		if (argv[i][0] != '-' || !(argv[i][1]) || argv[i][2])
 			m->map_name = argv[i];
@@ -87,12 +87,12 @@ static int		process_flags(int argc, char **argv, t_master *m)
 		else if (!(m->mode) && i + 2 < argc && argv[i][1] == 'c')
 		{
 			m->mode = 'c';
+			m->client = 1;
 			m->ip = argv[++i];
 			m->port = ft_atoi(argv[++i]);
 		}
 		else
 			return (ft_puterror(ERROR_USAGE, 0, 1));
-		i++;
 	}
 	if (!(m->client) && !(m->map_name))
 		return (ft_puterror(ERROR_USAGE, 0, 1));

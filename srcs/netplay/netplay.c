@@ -6,7 +6,7 @@
 /*   By: apuel <apuel@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/25 03:37:09 by apuel             #+#    #+#             */
-/*   Updated: 2018/08/25 14:56:40 by apuel            ###   ########.fr       */
+/*   Updated: 2018/08/28 14:31:01 by apuel            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void			packet_handler(
 		sizeof(t_bullet_pckt)
 	};
 
-	if (hdr->size == packet_s[hdr->id])
+	if (hdr->size >= packet_s[hdr->id])
 		packet_f[hdr->id](packet, sender, m);
 }
 

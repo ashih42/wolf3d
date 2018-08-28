@@ -6,7 +6,7 @@
 /*   By: apuel <apuel@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/02 18:45:17 by apuel             #+#    #+#             */
-/*   Updated: 2018/08/25 13:28:16 by apuel            ###   ########.fr       */
+/*   Updated: 2018/08/28 14:27:17 by apuel            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	map_load(t_map_pckt *packet, uint32_t sender, t_master *m)
 {
-	if (sender == 0 && m->client)
+	if (sender == 0 && m->client && !(m->map_name))
 	{
 		if (read_map_file(packet->name, m))
 			m->terminate = 1;
@@ -65,7 +65,7 @@ void	disconnect_player(uint32_t pid, t_master *m)
 		send_disconnect_packet(m->connections[pid]);
 		m->players[pid].connected = 0;
 		shutdown(m->connections[pid], 2);
-		ft_printf("[Server] Player %u disconnected!\n", pid);
+		ft_printf("[Server] Player %u disconnected!\n", pid + 1);
 		m->connected--;
 		dispatch_player_packet(pid, &(m->players[pid]), m, 0);
 	}

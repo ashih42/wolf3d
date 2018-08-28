@@ -6,7 +6,7 @@
 /*   By: apuel <apuel@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/28 13:51:47 by apuel             #+#    #+#             */
-/*   Updated: 2018/08/28 14:08:53 by apuel            ###   ########.fr       */
+/*   Updated: 2018/08/28 14:22:31 by apuel            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,14 @@ int		server_init(t_master *m)
 		if (read_map_file(m->map_name, m) || init_entities(m))
 			return (-1);
 	}
-	else if (start_client(m, m->ip, m->port))
+	else
 	{
-		ft_printf("[Client] %s\n", strerror(errno));
-		return (-1);
+		m->map_name = NULL;
+		if (start_client(m, m->ip, m->port))
+		{
+			ft_printf("[Client] %s\n", strerror(errno));
+			return (-1);
+		}
 	}
 	if (m->mode == 's' && start_server(m, m->port))
 	{

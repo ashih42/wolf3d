@@ -6,7 +6,7 @@
 /*   By: apuel <apuel@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/05 17:34:14 by apuel             #+#    #+#             */
-/*   Updated: 2018/08/25 13:23:51 by apuel            ###   ########.fr       */
+/*   Updated: 2018/08/28 14:16:52 by apuel            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void			listener_task(t_master *m)
 		{
 			m->connections[id] = socket;
 			m->connected++;
-			ft_printf("[Server] Player %u connected!\n", id);
+			ft_printf("[Server] Player %u connected!\n", id + 1);
 			if (send_initial_packets(socket, id, m) < 0)
 				disconnect_player(id, m);
 		}
