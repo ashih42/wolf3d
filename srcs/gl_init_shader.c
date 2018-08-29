@@ -6,7 +6,7 @@
 /*   By: apuel <apuel@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/07 00:59:51 by ashih             #+#    #+#             */
-/*   Updated: 2018/08/25 15:29:50 by apuel            ###   ########.fr       */
+/*   Updated: 2018/08/28 20:15:40 by apuel            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ static int			compile_shader(unsigned int *id, GLenum type,
 	glShaderSource(*id, 1, (const char *const *)&shader_str, NULL);
 	glCompileShader(*id);
 	glGetShaderiv(*id, GL_COMPILE_STATUS, &success);
+	ft_strdel(&shader_str);
 	if (!success)
 	{
 		glGetShaderInfoLog(*id, 512, NULL, info_log);

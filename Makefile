@@ -15,7 +15,7 @@ LIBFT_LIB := $(LIBFT)libft.a
 GLAD_OBJ := objs/glad.o
 GLAD_INC := glad/include/
 
-CFLAGS := -Wall -Werror -Wextra -g -fsanitize=address 
+CFLAGS := -Wall -Werror -Wextra #-g -fsanitize=address 
 HEADERS := -I $(INCLUDES) -I $(LIBFT_INC) -I $(GLFW_INC) -I $(GLAD_INC)
 
 SRCS := main.c \
@@ -92,8 +92,8 @@ $(TARGET): $(OBJS)
 	@echo "\x1b[1mBuilding $(TARGET)...\x1b[0m"
 	$(CC) -o $(TARGET) $(OBJS) $(GLAD_OBJ) -L$(LIBFT) -lft \
 		-lpthread \
-		$(GLFW_LINK) \
-		-fsanitize=address
+		$(GLFW_LINK) #\
+#		-fsanitize=address
 	@echo "\x1b[1mBuild finished!!\x1b[0m"
 
 clean:
