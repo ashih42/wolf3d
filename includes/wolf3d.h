@@ -6,7 +6,7 @@
 /*   By: apuel <apuel@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/25 18:39:39 by ashih             #+#    #+#             */
-/*   Updated: 2018/08/28 15:15:07 by apuel            ###   ########.fr       */
+/*   Updated: 2018/08/28 15:17:51 by apuel            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,9 @@
 
 # define SOCKADDR_IN			struct sockaddr_in
 # define PLAYER_COUNT			256
+# define PLAYER_SPRITE_COUNT	2
 # define TEXTURE_COUNT			2
-# define BULLET_TEXTURE			(TEXTURE_COUNT + PLAYER_COUNT)
+# define BULLET_TEXTURE			(TEXTURE_COUNT + PLAYER_SPRITE_COUNT)
 # define ENTITY_COUNT			256
 
 # define MINI_SPRITE			"textures/mini_knuckles.sprite"
@@ -280,7 +281,7 @@ typedef struct		s_master
 
 	float			z_buffer[WIN_WIDTH];
 
-	t_sprite		*textures[TEXTURE_COUNT + PLAYER_COUNT + 1];
+	t_sprite		*textures[TEXTURE_COUNT + PLAYER_SPRITE_COUNT + 1];
 	t_entity		blob;
 	t_entity		entities[ENTITY_COUNT];
 
