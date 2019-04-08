@@ -14,7 +14,7 @@
 # define WOLF3D_H
 
 # include "libft.h"
-# include <glad/glad.h>
+# include <GL/glew.h>
 # include <GLFW/glfw3.h>
 # include <math.h>
 # include <pthread.h>

@@ -8,15 +8,16 @@ GLFW_LOC := $(shell brew --prefix glfw)
 GLFW_INC := $(GLFW_LOC)/include/
 GLFW_LINK := -L $(GLFW_LOC)/lib/ -lglfw
 
+GLEW_LOC := $(shell brew --prefix glew)
+GLEW_INC := $(GLEW_LOC)/include/
+GLEW_LINK := -L $(GLEW_LOC)/lib/ -lGLEW
+
 LIBFT := libft/
 LIBFT_INC := $(LIBFT)includes/
 LIBFT_LIB := $(LIBFT)libft.a
 
-GLAD_OBJ := objs/glad.o
-GLAD_INC := glad/include/
-
 CFLAGS := -Wall -Werror -Wextra #-g -fsanitize=address 
-HEADERS := -I $(INCLUDES) -I $(LIBFT_INC) -I $(GLFW_INC) -I $(GLAD_INC)
+HEADERS := -I $(INCLUDES) -I $(LIBFT_INC) -I $(GLFW_INC) -I $(GLEW_INC)
 
 SRCS := main.c \
 asset.c \
@@ -64,23 +65,11 @@ SRCDIR := srcs/
 OBJDIR := objs/
 OBJS := $(addprefix $(OBJDIR), $(SRCS:.c=.o))
 
-all: glfw $(LIBFT_LIB) $(GLAD_OBJ) $(TARGET)
-
-glfw:
-	@echo "\x1b[1mInstalling glfw...\x1b[0m"
-	@HOMEBREW_NO_AUTO_UPDATE=1 brew install glfw
-	@echo
+all: $(LIBFT_LIB) $(TARGET)
 
 $(LIBFT_LIB):
 	@echo "\x1b[1mBuilding $(LIBFT) library...\x1b[0m"
 	@make -C $(LIBFT)
-	@echo
-
-$(GLAD_OBJ):
-	@echo "\x1b[1mBuilding glad.o...\x1b[0m"
-	@gcc glad/src/glad.c -c -I $(GLAD_INC)
-	@mkdir -p $(OBJDIR)
-	@mv glad.o $(OBJDIR)
 	@echo
 
 $(OBJDIR)%.o: $(SRCDIR)%.c
@@ -90,24 +79,24 @@ $(OBJDIR)%.o: $(SRCDIR)%.c
 
 $(TARGET): $(OBJS)
 	@echo "\x1b[1mBuilding $(TARGET)...\x1b[0m"
-	$(CC) -o $(TARGET) $(OBJS) $(GLAD_OBJ) -L$(LIBFT) -lft \
+	$(CC) -o $(TARGET) $(OBJS) -L$(LIBFT) -lft \
 		-lpthread \
-		$(GLFW_LINK) #\
-#		-fsanitize=address
+		$(GLFW_LINK) \
+		$(GLEW_LINK) -framework OpenGL # -fsanitize=address
 	@echo "\x1b[1mBuild finished!!\x1b[0m"
 
 clean:
 	@echo "\x1b[1mCleaning...\x1b[0m"
-	#make -C $(LIBFT) clean
+	make -C $(LIBFT) clean
 	/bin/rm -rf $(OBJDIR)
 	@echo
 
 fclean: clean
 	@echo "\x1b[1mFcleaning...\x1b[0m"
-	#/bin/rm -f $(LIBFT_LIB)
+	# /bin/rm -f $(LIBFT_LIB)
 	/bin/rm -f $(TARGET)
 	@echo
 
 re: fclean all
 
-.PHONY: all glfw clean fclean re
+.PHONY: all clean fclean re

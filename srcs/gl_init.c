@@ -67,8 +67,10 @@ static int		gl_kickstart(t_master *m)
 		return (ft_puterror(ERROR_GL, 0, 1));
 	glfwMakeContextCurrent(m->window);
 	glfwSetWindowUserPointer(m->window, m);
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-		return (ft_puterror(ERROR_GL, 0, 1));
+	// if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+	// 	return (ft_puterror(ERROR_GL, 0, 1));
+	if (glewInit() != GLEW_OK)
+		return (ft_puterror("glewInit() failed", NULL, -1));
 	return (0);
 }
 
