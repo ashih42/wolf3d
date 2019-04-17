@@ -27,7 +27,7 @@ You are on macOS with `gcc`, `make`, and `brew` installed.
 
 ### Online Multi-Player Mode
 
-Theoretically it supports up to 256 players!
+*Theoretically* support up to 256 players!
 
 #### Server
 
@@ -49,7 +49,7 @@ Theoretically it supports up to 256 players!
 * `~` Save screenshot in PPM format.
 * `Escape` Terminate the game.
 
-# Gameplay Controls
+### Gameplay Controls
 
 * `W`, `A`, `S`, `D` Move player.
 * `Q`, `E` Rotate camera.
